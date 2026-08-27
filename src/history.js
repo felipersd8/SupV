@@ -99,7 +99,7 @@ export class History extends Signals.EventEmitter {
             const [, contents] = GLib.file_get_contents(item.file);
             return new GLib.Bytes(contents);
         } catch (e) {
-            console.warn(`[winv] não foi possível ler ${item.file}: ${e.message}`);
+            console.warn(`[supv] não foi possível ler ${item.file}: ${e.message}`);
             return null;
         }
     }
@@ -228,7 +228,7 @@ export class History extends Signals.EventEmitter {
             [, contents] = GLib.file_get_contents(this._historyFile);
         } catch (e) {
             if (!e.matches?.(GLib.FileError, GLib.FileError.NOENT))
-                console.warn(`[winv] não foi possível ler ${this._historyFile}: ${e.message}`);
+                console.warn(`[supv] não foi possível ler ${this._historyFile}: ${e.message}`);
             return;
         }
         try {
@@ -271,7 +271,7 @@ export class History extends Signals.EventEmitter {
             this._dirty = false;
             this.emit('changed');
         } catch (e) {
-            console.warn(`[winv] histórico corrompido, ignorando: ${e.message}`);
+            console.warn(`[supv] histórico corrompido, ignorando: ${e.message}`);
         }
     }
 
@@ -289,7 +289,7 @@ export class History extends Signals.EventEmitter {
             GLib.file_set_contents(this._historyFile, this._serialize());
             this._dirty = false;
         } catch (e) {
-            console.warn(`[winv] falha ao salvar histórico: ${e.message}`);
+            console.warn(`[supv] falha ao salvar histórico: ${e.message}`);
         }
     }
 
@@ -309,7 +309,7 @@ export class History extends Signals.EventEmitter {
             en.close(null);
         } catch (e) {
             if (!e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.NOT_FOUND))
-                console.warn(`[winv] falha ao limpar imagens: ${e.message}`);
+                console.warn(`[supv] falha ao limpar imagens: ${e.message}`);
         }
     }
 
@@ -407,7 +407,7 @@ export class History extends Signals.EventEmitter {
                     f.replace_contents_finish(res);
                 } catch (e) {
                     this._dirty = true;
-                    console.warn(`[winv] falha ao salvar histórico: ${e.message}`);
+                    console.warn(`[supv] falha ao salvar histórico: ${e.message}`);
                 }
             });
     }
@@ -417,7 +417,7 @@ export class History extends Signals.EventEmitter {
             Gio.File.new_for_path(this._historyFile).delete(null);
         } catch (e) {
             if (!e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.NOT_FOUND))
-                console.warn(`[winv] falha ao apagar histórico: ${e.message}`);
+                console.warn(`[supv] falha ao apagar histórico: ${e.message}`);
         }
     }
 
@@ -431,7 +431,7 @@ export class History extends Signals.EventEmitter {
                 try {
                     f.replace_contents_finish(res);
                 } catch (e) {
-                    console.warn(`[winv] falha ao gravar imagem ${path}: ${e.message}`);
+                    console.warn(`[supv] falha ao gravar imagem ${path}: ${e.message}`);
                 }
                 this._pendingImageBytes.delete(hash);
             });
@@ -448,7 +448,7 @@ export class History extends Signals.EventEmitter {
             Gio.File.new_for_path(item.file).delete(null);
         } catch (e) {
             if (!e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.NOT_FOUND))
-                console.warn(`[winv] falha ao apagar ${item.file}: ${e.message}`);
+                console.warn(`[supv] falha ao apagar ${item.file}: ${e.message}`);
         }
     }
 }

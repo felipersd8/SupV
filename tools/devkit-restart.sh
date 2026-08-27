@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Reinstala a extensão no usuário e reinicia o shell aninhado (devkit).
-# Espera o Eval responder e imprime estado + mensagens da winv.
+# Espera o Eval responder e imprime estado + mensagens da supv.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-STATE="${XDG_RUNTIME_DIR:-/tmp}/winv-devkit"
+STATE="${XDG_RUNTIME_DIR:-/tmp}/supv-devkit"
 LOG="${DEVKIT_LOG:-$STATE/devkit.log}"
+mkdir -p "$STATE"
 
 "$HERE/install.sh" >/dev/null
 
@@ -23,6 +24,6 @@ for i in $(seq 1 40); do
 done
 sleep 2
 echo "== estado das extensões"
-"$HERE/tools/eval.sh" 'JSON.stringify([...Main.extensionManager._extensions].filter(([k])=>k.startsWith("winv")).map(([k,v])=>[k,v.state,String(v.error||"")]))'
-echo "== log (winv / erros)"
-grep -iE "winv|JS ERROR|CRITICAL|WARNING" "$LOG" | grep -v "NM.Object\|AuthenticationAgent" | tail -30
+"$HERE/tools/eval.sh" 'JSON.stringify([...Main.extensionManager._extensions].filter(([k])=>k.startsWith("supv")).map(([k,v])=>[k,v.state,String(v.error||"")]))'
+echo "== log (supv / erros)"
+grep -iE "supv|JS ERROR|CRITICAL|WARNING" "$LOG" | grep -v "NM.Object\|AuthenticationAgent" | tail -30

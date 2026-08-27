@@ -7,8 +7,8 @@ case "$1" in
         fi
         if [ "$1" = "remove" ]; then
             cat <<'MSG'
-WinV removido. Se a extensão estava ativa, desative-a antes na sua sessão
-(gnome-extensions disable winv@local) para restaurar o Super+V das notificações.
+Sup V removido. Se a extensão estava ativa, desative-a antes na sua sessão
+(gnome-extensions disable supv@felipersd8.github.io) para restaurar o Super+V das notificações.
 Se já removeu, restaure manualmente como usuário:
   gsettings reset org.gnome.shell.keybindings toggle-message-tray
 MSG

@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: winv
-Source: https://github.com/felipersd8/winv
+Upstream-Name: supv
+Source: https://github.com/felipersd8/SupV
 
 Files: *
 Copyright: 2026 Felipe <agenciacod@gmail.com>

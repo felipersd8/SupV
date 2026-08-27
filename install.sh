@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Instala a extensão WinV para o usuário atual (sem root) em
-# ~/.local/share/gnome-shell/extensions/winv@local
+# Instala a extensão Sup V para o usuário atual (sem root) em
+# ~/.local/share/gnome-shell/extensions/supv@felipersd8.github.io
 set -euo pipefail
 
-UUID="winv@local"
+UUID="supv@felipersd8.github.io"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$HERE/src"
 DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"

@@ -1,4 +1,4 @@
-winv (1.0.0) unstable; urgency=medium
+supv (1.0.0) unstable; urgency=medium
 
   * Primeira versão: painel Super+V, colar automático (Ctrl+V / Ctrl+Shift+V em
     terminais), fixar itens, imagens, persistência, preferências libadwaita.

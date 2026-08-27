@@ -118,7 +118,7 @@ export class ClipboardPanel extends Signals.EventEmitter {
 
     _build() {
         this._actor = vbox({
-            style_class: 'popup-menu-content winv-panel',
+            style_class: 'popup-menu-content supv-panel',
             reactive: true,
             can_focus: true,
             track_hover: true,
@@ -127,20 +127,20 @@ export class ClipboardPanel extends Signals.EventEmitter {
         this._actor.connect('key-press-event', this._onKeyPress.bind(this));
 
         // Cabeçalho
-        const header = hbox({style_class: 'winv-header', x_expand: true});
+        const header = hbox({style_class: 'supv-header', x_expand: true});
         this._titleLabel = new St.Label({
             text: 'Área de transferência',
-            style_class: 'winv-title',
+            style_class: 'supv-title',
             y_align: Clutter.ActorAlign.CENTER,
         });
-        this._filterBox = hbox({style_class: 'winv-filter', visible: false, y_align: Clutter.ActorAlign.CENTER});
-        this._filterBox.add_child(new St.Icon({icon_name: 'edit-find-symbolic', style_class: 'winv-filter-icon'}));
+        this._filterBox = hbox({style_class: 'supv-filter', visible: false, y_align: Clutter.ActorAlign.CENTER});
+        this._filterBox.add_child(new St.Icon({icon_name: 'edit-find-symbolic', style_class: 'supv-filter-icon'}));
         this._filterLabel = new St.Label({text: '', y_align: Clutter.ActorAlign.CENTER});
         this._filterBox.add_child(this._filterLabel);
         const spacer = new St.Widget({x_expand: true});
         this._clearButton = new St.Button({
             label: 'Limpar tudo',
-            style_class: 'winv-clear-button',
+            style_class: 'supv-clear-button',
             can_focus: false,
             y_align: Clutter.ActorAlign.CENTER,
         });
@@ -153,13 +153,13 @@ export class ClipboardPanel extends Signals.EventEmitter {
 
         // Lista rolável
         this._scroll = new St.ScrollView({
-            style_class: 'winv-scroll',
+            style_class: 'supv-scroll',
             x_expand: true,
             y_expand: true,
             overlay_scrollbars: true,
         });
         this._scroll.set_policy(St.PolicyType.NEVER, St.PolicyType.AUTOMATIC);
-        this._list = vbox({style_class: 'winv-list', x_expand: true});
+        this._list = vbox({style_class: 'supv-list', x_expand: true});
         if (this._scroll.set_child)
             this._scroll.set_child(this._list);
         else
@@ -168,7 +168,7 @@ export class ClipboardPanel extends Signals.EventEmitter {
 
         // Estado vazio
         this._emptyLabel = new St.Label({
-            style_class: 'winv-empty',
+            style_class: 'supv-empty',
             text: 'Nada aqui ainda — copie algo e ele aparece aqui',
             visible: false,
             x_align: Clutter.ActorAlign.CENTER,
@@ -217,22 +217,22 @@ export class ClipboardPanel extends Signals.EventEmitter {
 
     _createCard(item) {
         const card = new St.Button({
-            style_class: 'popup-menu-item winv-card',
+            style_class: 'popup-menu-item supv-card',
             x_expand: true,
             can_focus: false,
             reactive: true,
             track_hover: true,
             button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO,
         });
-        card.add_style_class_name(item.type === ItemType.IMAGE ? 'winv-card-image' : 'winv-card-text');
+        card.add_style_class_name(item.type === ItemType.IMAGE ? 'supv-card-image' : 'supv-card-text');
 
-        const row = hbox({style_class: 'winv-card-row', x_expand: true});
-        const content = vbox({style_class: 'winv-card-content', x_expand: true, y_align: Clutter.ActorAlign.START});
+        const row = hbox({style_class: 'supv-card-row', x_expand: true});
+        const content = vbox({style_class: 'supv-card-content', x_expand: true, y_align: Clutter.ActorAlign.START});
 
         if (item.type === ItemType.TEXT) {
             const {text, truncated} = makePreview(item.text);
-            const clip = vbox({style_class: 'winv-text-clip', clip_to_allocation: true, x_expand: true});
-            const label = new St.Label({text, style_class: 'winv-text', x_expand: true});
+            const clip = vbox({style_class: 'supv-text-clip', clip_to_allocation: true, x_expand: true});
+            const label = new St.Label({text, style_class: 'supv-text', x_expand: true});
             label.clutter_text.line_wrap = true;
             label.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR;
             label.clutter_text.ellipsize = Pango.EllipsizeMode.END;
@@ -240,7 +240,7 @@ export class ClipboardPanel extends Signals.EventEmitter {
             clip.add_child(label);
             content.add_child(clip);
             if (truncated || item.size >= 1024) {
-                const meta = new St.Label({text: formatSize(item.size), style_class: 'winv-meta'});
+                const meta = new St.Label({text: formatSize(item.size), style_class: 'supv-meta'});
                 meta.opacity = 140;
                 content.add_child(meta);
             }
@@ -248,7 +248,7 @@ export class ClipboardPanel extends Signals.EventEmitter {
             const thumb = this._getThumbnail(item);
             if (thumb) {
                 const img = new St.Widget({
-                    style_class: 'winv-thumb',
+                    style_class: 'supv-thumb',
                     content: thumb.content,
                     width: thumb.width,
                     height: thumb.height,
@@ -259,26 +259,26 @@ export class ClipboardPanel extends Signals.EventEmitter {
                 content.add_child(new St.Icon({icon_name: 'image-x-generic-symbolic', icon_size: 32, x_align: Clutter.ActorAlign.START}));
             }
             const dims = item.width && item.height ? ` · ${item.width}×${item.height}` : '';
-            const meta = new St.Label({text: `Imagem PNG${dims} · ${formatSize(item.size)}`, style_class: 'winv-meta'});
+            const meta = new St.Label({text: `Imagem PNG${dims} · ${formatSize(item.size)}`, style_class: 'supv-meta'});
             meta.opacity = 140;
             content.add_child(meta);
         }
 
         // Ações (fixar / excluir) — aparecem no hover ou quando selecionado
-        const actions = hbox({style_class: 'winv-actions', y_align: Clutter.ActorAlign.START});
+        const actions = hbox({style_class: 'supv-actions', y_align: Clutter.ActorAlign.START});
         const pinBtn = new St.Button({
-            style_class: 'winv-action-button',
+            style_class: 'supv-action-button',
             can_focus: false,
             child: new St.Icon({icon_name: 'view-pin-symbolic'}),
         });
         pinBtn.accessible_name = item.pinned ? 'Desafixar' : 'Fixar';
         if (item.pinned)
-            pinBtn.add_style_class_name('winv-pinned');
+            pinBtn.add_style_class_name('supv-pinned');
         pinBtn.connect('clicked', () => {
             this._history.togglePin(item.id);
         });
         const delBtn = new St.Button({
-            style_class: 'winv-action-button',
+            style_class: 'supv-action-button',
             can_focus: false,
             child: new St.Icon({icon_name: 'window-close-symbolic'}),
         });
@@ -374,7 +374,7 @@ export class ClipboardPanel extends Signals.EventEmitter {
                 height: Math.round(pixbuf.height / scale),
             };
         } catch (e) {
-            console.warn(`[winv] miniatura falhou (${item.file}): ${e.message}`);
+            console.warn(`[supv] miniatura falhou (${item.file}): ${e.message}`);
             result = null;
         }
         this._thumbCache.set(item.hash, result);
@@ -528,7 +528,7 @@ export class ClipboardPanel extends Signals.EventEmitter {
         if (Clutter.GrabState && grab.get_seat_state?.() === Clutter.GrabState.NONE) {
             Main.popModal(grab);
             this._actor.hide();
-            console.warn('[winv] não foi possível obter o grab do teclado');
+            console.warn('[supv] não foi possível obter o grab do teclado');
             return;
         }
         this._grab = grab;

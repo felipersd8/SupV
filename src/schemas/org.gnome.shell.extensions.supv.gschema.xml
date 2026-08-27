@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="winv">
-  <schema id="org.gnome.shell.extensions.winv" path="/org/gnome/shell/extensions/winv/">
-    <key name="toggle-winv" type="as">
+<schemalist gettext-domain="supv">
+  <schema id="org.gnome.shell.extensions.supv" path="/org/gnome/shell/extensions/supv/">
+    <key name="toggle-supv" type="as">
       <default><![CDATA[['<Super>v']]]></default>
       <summary>Atalho para abrir/fechar o histórico</summary>
     </key>
@@ -12,7 +12,7 @@
     </key>
     <key name="persist-history" type="b">
       <default>true</default>
-      <summary>Salvar histórico em disco (~/.cache/winv)</summary>
+      <summary>Salvar histórico em disco (~/.cache/supv)</summary>
     </key>
     <key name="paste-on-select" type="b">
       <default>true</default>

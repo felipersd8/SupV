@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    name: Validar schema e sintaxe
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libglib2.0-bin
+      - run: make check
+
+  build:
+    name: Gerar zip, tarball e .deb
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libglib2.0-bin zip
+      - run: make zip tarball deb
+      - run: |
+          dpkg-deb --info dist/*.deb
+          dpkg-deb --contents dist/*.deb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: supv-dist
+          path: dist/*
+
+  release:
+    name: Publicar release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: supv-dist
+          path: dist
+      - name: Criar release com os artefatos
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          notes="$(awk -v v="${tag#v}" '/^## /{p = index($0, v) > 0} p' CHANGELOG.md)"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "release $tag já existe (criada manualmente); mantendo os assets"
+          else
+            gh release create "$tag" dist/* --title "Sup V ${tag#v}" --notes "${notes:-Veja o CHANGELOG.md}"
+          fi

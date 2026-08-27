@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Remove a instalação do usuário (~/.local/share/gnome-shell/extensions/winv@local)
+# Remove a instalação do usuário (~/.local/share/gnome-shell/extensions/supv@felipersd8.github.io)
 # e restaura o atalho Super+V das notificações, se a extensão o tinha alterado.
 set -euo pipefail
 
-UUID="winv@local"
+UUID="supv@felipersd8.github.io"
 DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
 SCHEMA_DIR="$DEST/schemas"
-SCHEMA="org.gnome.shell.extensions.winv"
+SCHEMA="org.gnome.shell.extensions.supv"
 
 # Desativa primeiro — o disable() da extensão restaura o binding sozinho.
 if command -v gnome-extensions >/dev/null; then
@@ -29,10 +29,10 @@ rm -rf "$DEST"
 echo "Removido: $DEST"
 
 if [ "${1:-}" = "--purge" ]; then
-    rm -rf "$HOME/.cache/winv"
-    dconf reset -f /org/gnome/shell/extensions/winv/ 2>/dev/null || true
-    echo "Histórico (~/.cache/winv) e configurações apagados."
+    rm -rf "$HOME/.cache/supv"
+    dconf reset -f /org/gnome/shell/extensions/supv/ 2>/dev/null || true
+    echo "Histórico (~/.cache/supv) e configurações apagados."
 else
-    echo "Histórico mantido em ~/.cache/winv (use --purge para apagar tudo)."
+    echo "Histórico mantido em ~/.cache/supv (use --purge para apagar tudo)."
 fi
 echo "Faça logout/login (Wayland) ou Alt+F2 → r (X11) para o shell descarregar a extensão."

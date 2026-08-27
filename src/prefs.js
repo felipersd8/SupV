@@ -7,11 +7,13 @@ import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const KEYBINDING_NAME = 'toggle-winv';
+const REPO_URL = 'https://github.com/felipersd8/SupV';
+
+const KEYBINDING_NAME = 'toggle-supv';
 const DEFAULT_ACCEL = '<Super>v';
 
 const ShortcutDialog = GObject.registerClass(
-class WinVShortcutDialog extends Adw.Window {
+class SupVShortcutDialog extends Adw.Window {
     _init(parent, settings) {
         super._init({
             transient_for: parent,
@@ -70,14 +72,39 @@ class WinVShortcutDialog extends Adw.Window {
     }
 });
 
-export default class WinVPreferences extends ExtensionPreferences {
+export default class SupVPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         const settings = this.getSettings();
         window.set_default_size(560, 640);
         window.set_search_enabled(false);
 
-        const page = new Adw.PreferencesPage({title: 'WinV', icon_name: 'edit-paste-symbolic'});
+        const page = new Adw.PreferencesPage({title: 'Sup V', icon_name: 'edit-paste-symbolic'});
         window.add(page);
+
+        /* ---- Cabeçalho com a logo ---- */
+        const about = new Adw.PreferencesGroup();
+        page.add(about);
+        const header = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, spacing: 6, margin_bottom: 6});
+        const logoFile = this.dir.get_child('icons').get_child('supv.png');
+        if (logoFile.query_exists(null)) {
+            const logo = Gtk.Picture.new_for_file(logoFile);
+            logo.set_size_request(96, 96);
+            logo.content_fit = Gtk.ContentFit.CONTAIN;
+            logo.can_shrink = true;
+            header.append(logo);
+        }
+        const title = new Gtk.Label({label: 'Sup V', css_classes: ['title-1']});
+        const subtitle = new Gtk.Label({
+            label: `Histórico da área de transferência estilo Win+V · versão ${this.metadata['version-name'] ?? ''}`,
+            css_classes: ['dim-label'],
+            wrap: true,
+            justify: Gtk.Justification.CENTER,
+        });
+        const link = new Gtk.LinkButton({uri: REPO_URL, label: 'github.com/felipersd8/SupV'});
+        header.append(title);
+        header.append(subtitle);
+        header.append(link);
+        about.add(header);
 
         /* ---- Comportamento ---- */
         const behavior = new Adw.PreferencesGroup({title: 'Comportamento'});
@@ -93,7 +120,7 @@ export default class WinVPreferences extends ExtensionPreferences {
 
         const persistRow = new Adw.SwitchRow({
             title: 'Persistir em disco',
-            subtitle: 'Mantém o histórico entre sessões (~/.cache/winv). Desligado = limpa ao sair',
+            subtitle: 'Mantém o histórico entre sessões (~/.cache/supv). Desligado = limpa ao sair',
         });
         settings.bind('persist-history', persistRow, 'active', Gio.SettingsBindFlags.DEFAULT);
         behavior.add(persistRow);

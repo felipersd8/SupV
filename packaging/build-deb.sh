@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Gera dist/winv_<versão>_all.deb com dpkg-deb (sem debhelper: simples e reproduzível).
-#   /usr/share/gnome-shell/extensions/winv@local/   código da extensão
+# Gera dist/supv_<versão>_all.deb com dpkg-deb (sem debhelper: simples e reproduzível).
+#   /usr/share/gnome-shell/extensions/supv@felipersd8.github.io/   código da extensão
 #   /usr/share/glib-2.0/schemas/                    schema (compilado no postinst)
-#   /usr/share/doc/winv/                            README, copyright, changelog
+#   /usr/share/doc/supv/                            README, copyright, changelog
 set -euo pipefail
 . "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 ARCH=all
@@ -15,7 +15,9 @@ mkdir -p "$B/DEBIAN" "$EXT" "$B/usr/share/glib-2.0/schemas" "$B/usr/share/doc/$P
 for f in metadata.json extension.js prefs.js clipboardMonitor.js history.js panel.js paster.js stylesheet.css; do
     install -m 0644 "$ROOT/src/$f" "$EXT/"
 done
-install -m 0644 "$ROOT/src/schemas/org.gnome.shell.extensions.winv.gschema.xml" "$B/usr/share/glib-2.0/schemas/"
+install -m 0644 "$ROOT/src/schemas/org.gnome.shell.extensions.supv.gschema.xml" "$B/usr/share/glib-2.0/schemas/"
+install -d -m 0755 "$EXT/icons"
+install -m 0644 "$ROOT/src/icons/supv.png" "$EXT/icons/"
 
 # Documentação
 install -m 0644 "$ROOT/README.md" "$B/usr/share/doc/$PKG/README.md"

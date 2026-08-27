@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Encerra SOMENTE os processos lançados por tools/nested-run.sh (PIDs em $STATE/pids).
 set -uo pipefail
-STATE="${XDG_RUNTIME_DIR:-/tmp}/winv-devkit"
+STATE="${XDG_RUNTIME_DIR:-/tmp}/supv-devkit"
 [ -f "$STATE/pids" ] || { echo "nada a encerrar"; exit 0; }
 while read -r pid; do
     [ -n "$pid" ] || continue

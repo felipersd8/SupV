@@ -2,7 +2,7 @@
 # Executa JS dentro do shell aninhado via org.gnome.Shell.Eval (precisa de --unsafe-mode).
 # Uso: tools/eval.sh 'Main.notify("oi")'    (ou via stdin:  tools/eval.sh - < script.js)
 set -euo pipefail
-STATE="${XDG_RUNTIME_DIR:-/tmp}/winv-devkit"
+STATE="${XDG_RUNTIME_DIR:-/tmp}/supv-devkit"
 export DBUS_SESSION_BUS_ADDRESS="$(cat "$STATE/bus")"
 if [ "${1:-}" = "-" ]; then code="$(cat)"; else code="$1"; fi
 # gdbus interpreta o argumento como literal GVariant → escapamos como string JSON.

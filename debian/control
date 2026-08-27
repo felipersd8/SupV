@@ -1,4 +1,4 @@
-Package: winv
+Package: supv
 Version: @VERSION@
 Section: gnome
 Priority: optional
@@ -7,7 +7,7 @@ Installed-Size: @INSTALLED_SIZE@
 Depends: gnome-shell (>= 46), libglib2.0-bin
 Recommends: gnome-shell-extension-prefs
 Maintainer: Felipe <agenciacod@gmail.com>
-Homepage: https://github.com/felipersd8/winv
+Homepage: https://github.com/felipersd8/SupV
 Description: Histórico da área de transferência estilo Win+V para o GNOME Shell
  Extensão do GNOME Shell que replica o Win+V do Windows: Super+V abre um
  painel com os últimos itens copiados (texto e imagens), Enter cola direto no
@@ -15,4 +15,4 @@ Description: Histórico da área de transferência estilo Win+V para o GNOME She
  sessões. Roda dentro do próprio shell, sem app separado.
  .
  Após instalar, faça logout/login (Wayland) ou Alt+F2 -> r (X11) e ative com:
- gnome-extensions enable winv@local
+ gnome-extensions enable supv@felipersd8.github.io

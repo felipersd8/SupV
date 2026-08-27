@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Gera dist/winv-<versão>.tar.gz com o código-fonte completo (sem dist/, build/, .git).
+# Gera dist/supv-<versão>.tar.gz com o código-fonte completo (sem dist/, build/, .git).
 set -euo pipefail
 . "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 mkdir -p "$DIST"

@@ -7,11 +7,11 @@ case "$1" in
         fi
         cat <<'MSG'
 
-WinV instalado em /usr/share/gnome-shell/extensions/winv@local
+Sup V instalado em /usr/share/gnome-shell/extensions/supv@felipersd8.github.io
 
   1. Faça logout/login (Wayland) ou Alt+F2 -> r -> Enter (X11)
-  2. Ative:        gnome-extensions enable winv@local
-  3. Preferências: gnome-extensions prefs winv@local
+  2. Ative:        gnome-extensions enable supv@felipersd8.github.io
+  3. Preferências: gnome-extensions prefs supv@felipersd8.github.io
 
 Na primeira ativação a extensão remove <Super>v do atalho de notificações do
 GNOME (toggle-message-tray), guarda o valor original e o restaura quando for

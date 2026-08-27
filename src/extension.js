@@ -16,14 +16,14 @@ import {ClipboardMonitor} from './clipboardMonitor.js';
 import {Paster} from './paster.js';
 import {ClipboardPanel} from './panel.js';
 
-const KEYBINDING_NAME = 'toggle-winv';
+const KEYBINDING_NAME = 'toggle-supv';
 const SHELL_KEYBINDINGS_SCHEMA = 'org.gnome.shell.keybindings';
 const MESSAGE_TRAY_KEY = 'toggle-message-tray';
 
 const Indicator = GObject.registerClass(
-class WinVIndicator extends PanelMenu.Button {
+class SupVIndicator extends PanelMenu.Button {
     _init(onToggle) {
-        super._init(0.0, 'WinV', true);
+        super._init(0.0, 'Sup V', true);
         this.add_child(new St.Icon({
             icon_name: 'edit-paste-symbolic',
             style_class: 'system-status-icon',
@@ -41,13 +41,13 @@ function normalizeAccel(accel) {
     return accel.trim().toLowerCase().replace(/\s+/g, '');
 }
 
-export default class WinVExtension extends Extension {
+export default class SupVExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
         this._shellKeybindings = new Gio.Settings({schema_id: SHELL_KEYBINDINGS_SCHEMA});
         this._pasteTimeoutId = 0;
 
-        const cacheDir = GLib.build_filenamev([GLib.get_user_cache_dir(), 'winv']);
+        const cacheDir = GLib.build_filenamev([GLib.get_user_cache_dir(), 'supv']);
         this._history = new History({
             cacheDir,
             maxItems: this._settings.get_int('history-size'),
@@ -164,7 +164,7 @@ export default class WinVExtension extends Extension {
             try {
                 this._paster?.paste();
             } catch (e) {
-                console.warn(`[winv] falha ao simular colar: ${e.message}`);
+                console.warn(`[supv] falha ao simular colar: ${e.message}`);
             }
             return GLib.SOURCE_REMOVE;
         });
@@ -208,7 +208,7 @@ export default class WinVExtension extends Extension {
             this._settings.set_boolean('message-tray-binding-saved', true);
         }
         this._shellKeybindings.set_strv(MESSAGE_TRAY_KEY, remaining);
-        console.log(`[winv] toggle-message-tray: ${JSON.stringify(current)} → ${JSON.stringify(remaining)} (original salvo)`);
+        console.log(`[supv] toggle-message-tray: ${JSON.stringify(current)} → ${JSON.stringify(remaining)} (original salvo)`);
     }
 
     _restoreConflictingBinding() {
@@ -218,7 +218,7 @@ export default class WinVExtension extends Extension {
         this._shellKeybindings.set_strv(MESSAGE_TRAY_KEY, saved);
         this._settings.set_boolean('message-tray-binding-saved', false);
         this._settings.set_strv('saved-message-tray-binding', []);
-        console.log(`[winv] toggle-message-tray restaurado para ${JSON.stringify(saved)}`);
+        console.log(`[supv] toggle-message-tray restaurado para ${JSON.stringify(saved)}`);
     }
 
     /* ---------- ícone na barra ---------- */
@@ -227,7 +227,7 @@ export default class WinVExtension extends Extension {
         const want = this._settings.get_boolean('show-indicator');
         if (want && !this._indicator) {
             this._indicator = new Indicator(() => this._panel?.toggle());
-            Main.panel.addToStatusArea('winv', this._indicator);
+            Main.panel.addToStatusArea('supv', this._indicator);
         } else if (!want && this._indicator) {
             this._indicator.destroy();
             this._indicator = null;

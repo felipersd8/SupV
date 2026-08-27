@@ -1,24 +1,24 @@
-/* WinV — usa as classes do tema do shell (popup-menu-content / popup-menu-item)
+/* Sup V — usa as classes do tema do shell (popup-menu-content / popup-menu-item)
    para herdar cores do tema claro/escuro. Aqui só layout e detalhes. */
 
-.winv-panel {
+.supv-panel {
     width: 340px;
     max-height: 480px;
     padding: 8px;
     spacing: 4px;
 }
 
-.winv-header {
+.supv-header {
     padding: 4px 6px 6px 8px;
     spacing: 6px;
 }
 
-.winv-title {
+.supv-title {
     font-weight: bold;
     font-size: 0.95em;
 }
 
-.winv-filter {
+.supv-filter {
     font-size: 0.9em;
     padding: 1px 8px;
     border-radius: 8px;
@@ -26,85 +26,85 @@
     spacing: 4px;
 }
 
-.winv-filter-icon {
+.supv-filter-icon {
     icon-size: 12px;
 }
 
-.winv-clear-button {
+.supv-clear-button {
     padding: 3px 10px;
     border-radius: 99px;
     font-size: 0.9em;
 }
 
-.winv-clear-button:hover,
-.winv-clear-button:focus {
+.supv-clear-button:hover,
+.supv-clear-button:focus {
     background-color: rgba(128, 128, 128, 0.25);
 }
 
-.winv-clear-button:active {
+.supv-clear-button:active {
     background-color: rgba(128, 128, 128, 0.4);
 }
 
-.winv-list {
+.supv-list {
     spacing: 3px;
 }
 
-.winv-card {
+.supv-card {
     padding: 8px 8px 8px 12px;
     border-radius: 12px;
     spacing: 0;
 }
 
-.winv-card-row {
+.supv-card-row {
     spacing: 6px;
 }
 
-.winv-card-content {
+.supv-card-content {
     spacing: 3px;
 }
 
-.winv-text-clip {
+.supv-text-clip {
     max-height: 5.6em;
 }
 
-.winv-text {
+.supv-text {
     font-size: 0.95em;
 }
 
-.winv-meta {
+.supv-meta {
     font-size: 0.8em;
 }
 
-.winv-thumb {
+.supv-thumb {
     border-radius: 6px;
 }
 
-.winv-actions {
+.supv-actions {
     spacing: 0;
 }
 
-.winv-action-button {
+.supv-action-button {
     padding: 4px;
     border-radius: 99px;
 }
 
-.winv-action-button:hover {
+.supv-action-button:hover {
     background-color: rgba(128, 128, 128, 0.3);
 }
 
-.winv-action-button:active {
+.supv-action-button:active {
     background-color: rgba(128, 128, 128, 0.45);
 }
 
-.winv-action-button StIcon {
+.supv-action-button StIcon {
     icon-size: 14px;
 }
 
-.winv-pinned StIcon {
+.supv-pinned StIcon {
     icon-size: 14px;
 }
 
-.winv-empty {
+.supv-empty {
     padding: 28px 16px;
     text-align: center;
     font-size: 0.95em;

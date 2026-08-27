@@ -43,7 +43,7 @@ export class ClipboardMonitor extends Signals.EventEmitter {
         try {
             mimetypes = this._clipboard.get_mimetypes(St.ClipboardType.CLIPBOARD) ?? [];
         } catch (e) {
-            console.warn(`[winv] get_mimetypes falhou: ${e.message}`);
+            console.warn(`[supv] get_mimetypes falhou: ${e.message}`);
             return;
         }
         if (mimetypes.length === 0)
