@@ -26,7 +26,10 @@ if [ -f "$SCHEMA_DIR/gschemas.compiled" ]; then
 fi
 
 rm -rf "$DEST"
-echo "Removido: $DEST"
+rm -f "${XDG_CONFIG_HOME:-$HOME/.config}/autostart/supv-autoenable.desktop" \
+      "${XDG_CONFIG_HOME:-$HOME/.config}/supv/auto-enabled"
+rm -rf "${XDG_DATA_HOME:-$HOME/.local/share}/supv"
+echo "Removido: $DEST (e o autostart de ativação inicial)"
 
 if [ "${1:-}" = "--purge" ]; then
     rm -rf "$HOME/.cache/supv"

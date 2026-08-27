@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Sup V (ativação inicial)
+Comment=Ativa a extensão Sup V no primeiro login após a instalação
+Exec=@AUTOENABLE@
+OnlyShowIn=GNOME;
+NoDisplay=true
+X-GNOME-Autostart-Phase=Applications
+X-GNOME-Autostart-Delay=2

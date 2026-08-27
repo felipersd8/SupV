@@ -6,7 +6,7 @@ Architecture: all
 Installed-Size: @INSTALLED_SIZE@
 Depends: gnome-shell (>= 46), libglib2.0-bin
 Recommends: gnome-shell-extension-prefs
-Maintainer: Felipe <agenciacod@gmail.com>
+Maintainer: felipersd8 <72715522+felipersd8@users.noreply.github.com>
 Homepage: https://github.com/felipersd8/SupV
 Description: Histórico da área de transferência estilo Win+V para o GNOME Shell
  Extensão do GNOME Shell que replica o Win+V do Windows: Super+V abre um

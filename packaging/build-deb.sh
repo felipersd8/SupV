@@ -9,7 +9,8 @@ ARCH=all
 B="$ROOT/build/deb/${PKG}_${VERSION}_${ARCH}"
 EXT="$B/usr/share/gnome-shell/extensions/$UUID"
 rm -rf "$B"
-mkdir -p "$B/DEBIAN" "$EXT" "$B/usr/share/glib-2.0/schemas" "$B/usr/share/doc/$PKG"
+mkdir -p "$B/DEBIAN" "$EXT" "$B/usr/share/glib-2.0/schemas" "$B/usr/share/doc/$PKG" \
+         "$B/usr/libexec/$PKG" "$B/etc/xdg/autostart"
 
 # Extensão — sem o diretório schemas/: no sistema o schema vive em /usr/share/glib-2.0/schemas
 for f in metadata.json extension.js prefs.js clipboardMonitor.js history.js panel.js paster.js stylesheet.css; do
@@ -19,6 +20,12 @@ install -m 0644 "$ROOT/src/schemas/org.gnome.shell.extensions.supv.gschema.xml" 
 install -d -m 0755 "$EXT/icons"
 install -m 0644 "$ROOT/src/icons/supv.png" "$EXT/icons/"
 
+# Ativação automática no primeiro login (autostart XDG)
+install -m 0755 "$ROOT/packaging/supv-autoenable.sh" "$B/usr/libexec/$PKG/autoenable"
+sed "s|@AUTOENABLE@|/usr/libexec/$PKG/autoenable|" "$ROOT/packaging/supv-autoenable.desktop" \
+    > "$B/etc/xdg/autostart/supv-autoenable.desktop"
+chmod 0644 "$B/etc/xdg/autostart/supv-autoenable.desktop"
+
 # Documentação
 install -m 0644 "$ROOT/README.md" "$B/usr/share/doc/$PKG/README.md"
 install -m 0644 "$ROOT/debian/copyright" "$B/usr/share/doc/$PKG/copyright"
@@ -26,11 +33,13 @@ gzip -9n -c "$ROOT/debian/changelog" > "$B/usr/share/doc/$PKG/changelog.Debian.g
 chmod 0644 "$B/usr/share/doc/$PKG/changelog.Debian.gz"
 
 # Metadados
-INSTALLED_SIZE="$(du -sk "$B/usr" | cut -f1)"
+INSTALLED_SIZE="$(du -sk "$B/usr" "$B/etc" | awk '{s+=$1} END {print s}')"
 sed -e "s/@VERSION@/$VERSION/" -e "s/@INSTALLED_SIZE@/$INSTALLED_SIZE/" "$ROOT/debian/control" > "$B/DEBIAN/control"
 install -m 0755 "$ROOT/debian/postinst" "$B/DEBIAN/postinst"
 install -m 0755 "$ROOT/debian/postrm" "$B/DEBIAN/postrm"
-(cd "$B" && find usr -type f -print0 | LC_ALL=C sort -z | xargs -0 md5sum > DEBIAN/md5sums)
+(cd "$B" && find usr etc -type f -print0 | LC_ALL=C sort -z | xargs -0 md5sum > DEBIAN/md5sums)
+printf '/etc/xdg/autostart/supv-autoenable.desktop\n' > "$B/DEBIAN/conffiles"
+chmod 0644 "$B/DEBIAN/conffiles"
 chmod 0644 "$B/DEBIAN/md5sums" "$B/DEBIAN/control"
 find "$B" -type d -exec chmod 0755 {} +
 

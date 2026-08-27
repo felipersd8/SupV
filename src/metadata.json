@@ -9,7 +9,7 @@
     "49",
     "50"
   ],
-  "version-name": "1.0.0",
+  "version-name": "1.0.1",
   "settings-schema": "org.gnome.shell.extensions.supv",
   "gettext-domain": "supv",
   "url": "https://github.com/felipersd8/SupV"

@@ -5,9 +5,10 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STATE="${XDG_RUNTIME_DIR:-/tmp}/supv-devkit"
 LOG="${DEVKIT_LOG:-$STATE/devkit.log}"
-mkdir -p "$STATE"
+mkdir -p "$STATE" "$STATE/data" "$STATE/config"
 
-"$HERE/install.sh" >/dev/null
+# instala a extensão SÓ na sessão headless ($STATE/data), sem tocar em ~/.local/share
+XDG_DATA_HOME="$STATE/data" XDG_CONFIG_HOME="$STATE/config" "$HERE/install.sh" >/dev/null
 
 # mata só o dbus-run-session do devkit (pelo PID gravado), nunca por nome
 [ -f "$STATE/devkit.pid" ] && kill "$(cat "$STATE/devkit.pid")" 2>/dev/null

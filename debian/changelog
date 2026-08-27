@@ -1,6 +1,13 @@
+supv (1.0.1) unstable; urgency=medium
+
+  * Ativação automática no primeiro login após a instalação (autostart XDG,
+    uma única vez; respeita desativação manual).
+
+ -- felipersd8 <72715522+felipersd8@users.noreply.github.com>  Wed, 27 Aug 2026 01:50:00 -0300
+
 supv (1.0.0) unstable; urgency=medium
 
   * Primeira versão: painel Super+V, colar automático (Ctrl+V / Ctrl+Shift+V em
     terminais), fixar itens, imagens, persistência, preferências libadwaita.
 
- -- Felipe <agenciacod@gmail.com>  Wed, 27 Aug 2026 00:50:00 -0300
+ -- felipersd8 <72715522+felipersd8@users.noreply.github.com>  Wed, 27 Aug 2026 00:50:00 -0300

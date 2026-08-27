@@ -8,11 +8,12 @@
 set -euo pipefail
 
 STATE="${XDG_RUNTIME_DIR:-/tmp}/supv-devkit"
-mkdir -p "$STATE/config" "$STATE/cache"
+mkdir -p "$STATE/config" "$STATE/cache" "$STATE/data"
 export STATE
 export GSETTINGS_BACKEND=keyfile
 export XDG_CONFIG_HOME="$STATE/config"
-export XDG_CACHE_HOME="$STATE/cache"      # histórico do devkit fica separado do real (~/.cache/supv)
+export XDG_CACHE_HOME="$STATE/cache"
+export XDG_DATA_HOME="$STATE/data"        # extensão instalada em $STATE/data/gnome-shell/extensions (isolada da real)
 
 gsettings set org.gnome.shell enabled-extensions "['supv@felipersd8.github.io']"
 gsettings set org.gnome.shell disable-user-extensions false

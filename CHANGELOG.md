@@ -2,6 +2,18 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
+## 1.0.1 — 2026-08-27
+
+### Adicionado
+- **Ativação automática**: o `.deb` (`/etc/xdg/autostart`) e o `install.sh`
+  (`~/.config/autostart`) instalam uma entrada de autostart que, no primeiro login após a
+  instalação, executa `gnome-extensions enable` — o GNOME Shell (Wayland) só enxerga
+  extensões novas depois de um login, e antes era preciso ativar à mão. Roda uma vez só
+  (marcador em `~/.config/supv/auto-enabled`); desativar manualmente é respeitado.
+
+### Corrigido
+- `build-tarball.sh` falhava na CI (SIGPIPE de `head` com `pipefail`).
+
 ## 1.0.0 — 2026-08-27
 
 Primeira versão pública. (O projeto nasceu como "WinV" e foi renomeado para **Sup V**

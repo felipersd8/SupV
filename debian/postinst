@@ -9,9 +9,12 @@ case "$1" in
 
 Sup V instalado em /usr/share/gnome-shell/extensions/supv@felipersd8.github.io
 
-  1. Faça logout/login (Wayland) ou Alt+F2 -> r -> Enter (X11)
-  2. Ative:        gnome-extensions enable supv@felipersd8.github.io
-  3. Preferências: gnome-extensions prefs supv@felipersd8.github.io
+  Faça logout/login (Wayland) ou Alt+F2 -> r -> Enter (X11).
+  No próximo login o Sup V é ativado automaticamente (uma única vez; se você
+  o desativar depois, ele respeita). Para ativar/desativar manualmente:
+    gnome-extensions enable  supv@felipersd8.github.io
+    gnome-extensions disable supv@felipersd8.github.io
+  Preferências: gnome-extensions prefs supv@felipersd8.github.io
 
 Na primeira ativação a extensão remove <Super>v do atalho de notificações do
 GNOME (toggle-message-tray), guarda o valor original e o restaura quando for

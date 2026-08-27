@@ -57,14 +57,15 @@ Baixe na página de releases: **https://github.com/felipersd8/SupV/releases/late
 | `supv-<versão>.tar.gz` | código-fonte |
 
 > **Wayland exige logout/login** para o GNOME Shell carregar uma extensão nova ou
-> atualizada. No X11 basta `Alt+F2`, `r`, `Enter`.
+> atualizada. No X11 basta `Alt+F2`, `r`, `Enter`. Instalando pelo `.deb` ou pelo
+> `install.sh`, **o Sup V é ativado sozinho no primeiro login** (veja
+> [Ativação automática](#ativação-automática)); pelo zip é preciso o `enable` manual.
 
 ### .deb
 
 ```bash
-sudo apt install ./supv_1.0.0_all.deb
-# logout/login (Wayland) ou Alt+F2 → r (X11)
-gnome-extensions enable supv@felipersd8.github.io
+sudo apt install ./supv_1.0.1_all.deb
+# logout/login (Wayland) ou Alt+F2 → r (X11) — o Sup V ativa sozinho no próximo login
 ```
 
 Instala em `/usr/share/gnome-shell/extensions/supv@felipersd8.github.io/` e o schema em
@@ -84,9 +85,19 @@ gnome-extensions enable supv@felipersd8.github.io
 ```bash
 git clone https://github.com/felipersd8/SupV.git && cd SupV
 ./install.sh            # ou: make install
-# logout/login (Wayland) ou Alt+F2 → r (X11)
-gnome-extensions enable supv@felipersd8.github.io
+# logout/login (Wayland) ou Alt+F2 → r (X11) — ativa sozinho no próximo login
 ```
+
+### Ativação automática
+
+O GNOME Shell só descobre uma extensão nova ao iniciar a sessão, e não há API para
+"habilitar na próxima sessão". Por isso o `.deb` instala `/etc/xdg/autostart/supv-autoenable.desktop`
+(e o `install.sh`, `~/.config/autostart/…`): no primeiro login após a instalação ele executa
+`gnome-extensions enable supv@felipersd8.github.io` e grava o marcador
+`~/.config/supv/auto-enabled` para nunca mais repetir. Se você desativar a extensão depois,
+ela **não** volta sozinha. Nada além disso é alterado na sua sessão; a entrada não aparece em
+"Aplicativos de inicialização" (`NoDisplay=true`). Uma vez ativada, a extensão fica gravada em
+`org.gnome.shell enabled-extensions` e permanece ativa em todos os logins.
 
 ### Snap
 
@@ -149,7 +160,7 @@ Se removeu sem desativar antes e o `Super+V` das notificações não voltou:
 
 | Sintoma | O que fazer |
 |---|---|
-| `Super+V` abre as notificações | a extensão não está ativa: `gnome-extensions info supv@felipersd8.github.io` — se aparecer "não existe", faça logout/login |
+| `Super+V` abre as notificações | a extensão não está ativa: `gnome-extensions info supv@felipersd8.github.io` — "não existe" = o shell ainda não recarregou (logout/login); "Habilitada: Não" = `gnome-extensions enable supv@felipersd8.github.io` |
 | "A extensão … não existe" logo após instalar | o shell ainda não recarregou (Wayland: logout/login; X11: `Alt+F2` → `r`) |
 | `Enter` não cola | aumente **Atraso antes de colar** nas preferências; alguns apps demoram a recuperar o foco. Em terminais confira a opção `Ctrl+Shift+V` |
 | Colou no lugar errado | o painel devolve o foco à janela que o tinha antes de abrir; se você clicou em outra janela com o painel aberto, ele fecha sem colar |
