@@ -1,0 +1,6 @@
+dist/
+*.deb
+*.tar.gz
+*.zip
+src/schemas/gschemas.compiled
+build/

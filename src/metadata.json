@@ -1,0 +1,10 @@
+{
+  "uuid": "winv@local",
+  "name": "WinV — Clipboard History",
+  "description": "Histórico da área de transferência no estilo Win+V do Windows, integrado ao GNOME Shell. Super+V abre o painel; Enter cola direto no app com foco.",
+  "shell-version": ["46", "47", "48", "49", "50"],
+  "version-name": "1.0.0",
+  "settings-schema": "org.gnome.shell.extensions.winv",
+  "gettext-domain": "winv",
+  "url": "https://github.com/felipe/winv"
+}
