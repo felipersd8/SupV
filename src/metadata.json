@@ -6,5 +6,5 @@
   "version-name": "1.0.0",
   "settings-schema": "org.gnome.shell.extensions.winv",
   "gettext-domain": "winv",
-  "url": "https://github.com/felipe/winv"
+  "url": "https://github.com/felipersd8/winv"
 }
