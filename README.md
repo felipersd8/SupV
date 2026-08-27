@@ -10,10 +10,19 @@ GNOME 46–50 (`shell-version` no `metadata.json`).
 
 ## Instalação
 
+Baixe os arquivos prontos na página de releases:
+**https://github.com/felipersd8/winv/releases** — `winv_1.0.0_all.deb`,
+`winv@local.shell-extension.zip` e `winv-1.0.0.tar.gz`. Ou gere você mesmo com `make all`
+(saída em `dist/`).
+
+> **apt-get / snap:** não há (ainda) repositório APT/PPA — `apt-get install winv` não
+> funciona; instale o `.deb` baixado com `apt install ./arquivo.deb` (o próprio `apt`
+> resolve as dependências). Snap não é possível para extensões do GNOME Shell (veja abaixo).
+
 ### Pacote .deb (recomendado no Ubuntu/Debian)
 
 ```bash
-sudo apt install ./dist/winv_1.0.0_all.deb
+sudo apt install ./winv_1.0.0_all.deb
 # depois: logout/login (Wayland) ou Alt+F2 → r → Enter (X11)
 gnome-extensions enable winv@local
 ```
@@ -21,6 +30,9 @@ gnome-extensions enable winv@local
 Instala em `/usr/share/gnome-shell/extensions/winv@local/` e o schema em
 `/usr/share/glib-2.0/schemas/`. Remoção: `sudo apt remove winv` (veja
 [Desinstalação](#desinstalação) sobre o atalho das notificações).
+
+> Se você já tinha instalado com `install.sh`/zip, rode `./uninstall.sh` antes: a cópia em
+> `~/.local/share/gnome-shell/extensions/` tem precedência sobre a do sistema.
 
 ### Zip (instalação manual, qualquer distro)
 
