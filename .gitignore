@@ -4,3 +4,6 @@ dist/
 *.zip
 src/schemas/gschemas.compiled
 build/
+
+# vault do Obsidian do usuário (não faz parte do projeto)
+winv/
