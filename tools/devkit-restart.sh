@@ -8,11 +8,13 @@ LOG="${DEVKIT_LOG:-$STATE/devkit.log}"
 
 "$HERE/install.sh" >/dev/null
 
-pkill -x dbus-run-session 2>/dev/null
-for _ in 1 2 3 4 5; do pgrep -f -x 'gnome-shell --headless --no-x11 --virtual-monitor 1280x800 --wayland-display winv-nested --unsafe-mode' >/dev/null || break; sleep 1; done
-pkill -f -x 'gnome-shell --headless --no-x11 --virtual-monitor 1280x800 --wayland-display winv-nested --unsafe-mode' 2>/dev/null
+# mata só o dbus-run-session do devkit (pelo PID gravado), nunca por nome
+[ -f "$STATE/devkit.pid" ] && kill "$(cat "$STATE/devkit.pid")" 2>/dev/null
+for _ in 1 2 3 4 5; do [ -f "$STATE/shell.pid" ] && kill -0 "$(cat "$STATE/shell.pid")" 2>/dev/null || break; sleep 1; done
+[ -f "$STATE/shell.pid" ] && kill "$(cat "$STATE/shell.pid")" 2>/dev/null
 sleep 1
 nohup "$HERE/tools/devkit.sh" > "$LOG" 2>&1 &
+echo $! > "$STATE/devkit.pid"
 for i in $(seq 1 40); do
     sleep 1
     if "$HERE/tools/eval.sh" 'true' >/dev/null 2>&1; then

@@ -1,0 +1,6 @@
+winv (1.0.0) unstable; urgency=medium
+
+  * Primeira versão: painel Super+V, colar automático (Ctrl+V / Ctrl+Shift+V em
+    terminais), fixar itens, imagens, persistência, preferências libadwaita.
+
+ -- Felipe <agenciacod@gmail.com>  Wed, 27 Aug 2026 00:50:00 -0300

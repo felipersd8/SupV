@@ -19,5 +19,6 @@ gsettings set org.gnome.shell disable-user-extensions false
 
 exec dbus-run-session -- bash -c '
   echo "$DBUS_SESSION_BUS_ADDRESS" > "$STATE/bus"
+  echo $$ > "$STATE/shell.pid"
   exec gnome-shell --headless --no-x11 --virtual-monitor 1280x800 --wayland-display winv-nested --unsafe-mode "$@"
 ' _ "$@"

@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+case "$1" in
+    remove|purge)
+        if command -v glib-compile-schemas >/dev/null 2>&1; then
+            glib-compile-schemas /usr/share/glib-2.0/schemas/ || true
+        fi
+        if [ "$1" = "remove" ]; then
+            cat <<'MSG'
+WinV removido. Se a extensão estava ativa, desative-a antes na sua sessão
+(gnome-extensions disable winv@local) para restaurar o Super+V das notificações.
+Se já removeu, restaure manualmente como usuário:
+  gsettings reset org.gnome.shell.keybindings toggle-message-tray
+MSG
+        fi
+        ;;
+esac
+exit 0
