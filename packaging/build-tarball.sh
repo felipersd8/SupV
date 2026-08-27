@@ -15,4 +15,4 @@ else
         --transform "s,^$base,$PKG-$VERSION," -czf "$OUT" "$base"
 fi
 echo "gerado: $OUT"
-tar -tzf "$OUT" | head -40
+echo "$(tar -tzf "$OUT" | wc -l) entradas"
