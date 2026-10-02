@@ -1,35 +1,58 @@
 #!/usr/bin/env bash
-# Remove a instalação do usuário (~/.local/share/gnome-shell/extensions/supv@felipersd8.github.io)
-# e restaura o atalho Super+V das notificações, se a extensão o tinha alterado.
+# Remove a instalação do Sup V (GNOME Shell e/ou Cinnamon).
 set -euo pipefail
 
 UUID="supv@felipersd8.github.io"
-DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
-SCHEMA_DIR="$DEST/schemas"
+GNOME_DEST="${XDG_DATA_HOME:-$HOME/.local/share}/gnome-shell/extensions/$UUID"
+CINNAMON_DEST="${XDG_DATA_HOME:-$HOME/.local/share}/cinnamon/applets/$UUID"
+SCHEMA_DIR="$GNOME_DEST/schemas"
 SCHEMA="org.gnome.shell.extensions.supv"
 
-# Desativa primeiro — o disable() da extensão restaura o binding sozinho.
-if command -v gnome-extensions >/dev/null; then
-    gnome-extensions disable "$UUID" 2>/dev/null || true
-fi
-
-# Rede de segurança: se o shell não estava rodando / a extensão não restaurou,
-# lemos o valor salvo direto do gsettings e restauramos.
-if [ -f "$SCHEMA_DIR/gschemas.compiled" ]; then
-    saved="$(GSETTINGS_SCHEMA_DIR="$SCHEMA_DIR" gsettings get "$SCHEMA" message-tray-binding-saved 2>/dev/null || echo false)"
-    if [ "$saved" = "true" ]; then
-        orig="$(GSETTINGS_SCHEMA_DIR="$SCHEMA_DIR" gsettings get "$SCHEMA" saved-message-tray-binding)"
-        echo "Restaurando toggle-message-tray para $orig"
-        gsettings set org.gnome.shell.keybindings toggle-message-tray "$orig"
-        GSETTINGS_SCHEMA_DIR="$SCHEMA_DIR" gsettings set "$SCHEMA" message-tray-binding-saved false || true
+# Desinstalação GNOME
+if [ -d "$GNOME_DEST" ]; then
+    echo "==> Removendo extensão GNOME Shell"
+    if command -v gnome-extensions >/dev/null 2>&1; then
+        gnome-extensions disable "$UUID" 2>/dev/null || true
     fi
+
+    if [ -f "$SCHEMA_DIR/gschemas.compiled" ]; then
+        saved="$(GSETTINGS_SCHEMA_DIR="$SCHEMA_DIR" gsettings get "$SCHEMA" message-tray-binding-saved 2>/dev/null || echo false)"
+        if [ "$saved" = "true" ]; then
+            orig="$(GSETTINGS_SCHEMA_DIR="$SCHEMA_DIR" gsettings get "$SCHEMA" saved-message-tray-binding)"
+            echo "Restaurando toggle-message-tray para $orig"
+            gsettings set org.gnome.shell.keybindings toggle-message-tray "$orig" 2>/dev/null || true
+            GSETTINGS_SCHEMA_DIR="$SCHEMA_DIR" gsettings set "$SCHEMA" message-tray-binding-saved false 2>/dev/null || true
+        fi
+    fi
+
+    rm -rf "$GNOME_DEST"
+    rm -f "${XDG_CONFIG_HOME:-$HOME/.config}/autostart/supv-autoenable.desktop" \
+          "${XDG_CONFIG_HOME:-$HOME/.config}/supv/auto-enabled"
+    rm -rf "${XDG_DATA_HOME:-$HOME/.local/share}/supv"
+    echo "Removido: $GNOME_DEST"
 fi
 
-rm -rf "$DEST"
-rm -f "${XDG_CONFIG_HOME:-$HOME/.config}/autostart/supv-autoenable.desktop" \
-      "${XDG_CONFIG_HOME:-$HOME/.config}/supv/auto-enabled"
-rm -rf "${XDG_DATA_HOME:-$HOME/.local/share}/supv"
-echo "Removido: $DEST (e o autostart de ativação inicial)"
+# Desinstalação Cinnamon
+if [ -d "$CINNAMON_DEST" ]; then
+    echo "==> Removendo applet Cinnamon"
+    if command -v gsettings >/dev/null 2>&1; then
+        python3 -c "
+import ast, subprocess
+try:
+    raw = subprocess.check_output(['gsettings', 'get', 'org.cinnamon', 'enabled-applets'], text=True).strip()
+    applets = ast.literal_eval(raw)
+    uuid = '$UUID'
+    new_applets = [a for a in applets if uuid not in a]
+    if len(new_applets) != len(applets):
+        subprocess.check_call(['gsettings', 'set', 'org.cinnamon', 'enabled-applets', str(new_applets)])
+        print('Removido do painel do Cinnamon.')
+except Exception as e:
+    pass
+" || true
+    fi
+    rm -rf "$CINNAMON_DEST"
+    echo "Removido: $CINNAMON_DEST"
+fi
 
 if [ "${1:-}" = "--purge" ]; then
     rm -rf "$HOME/.cache/supv"
@@ -38,4 +61,5 @@ if [ "${1:-}" = "--purge" ]; then
 else
     echo "Histórico mantido em ~/.cache/supv (use --purge para apagar tudo)."
 fi
-echo "Faça logout/login (Wayland) ou Alt+F2 → r (X11) para o shell descarregar a extensão."
+
+echo "Desinstalação concluída."

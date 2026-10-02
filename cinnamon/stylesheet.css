@@ -1,0 +1,135 @@
+/* Sup V — Estilos para Cinnamon (estilo Win+V) */
+
+.supv-panel {
+    width: 360px;
+    max-height: 480px;
+    padding: 8px;
+    spacing: 4px;
+    border-radius: 12px;
+    background-color: rgba(30, 30, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    color: #e0e0e0;
+}
+
+.supv-header {
+    padding: 4px 6px 6px 8px;
+    spacing: 6px;
+}
+
+.supv-title {
+    font-weight: bold;
+    font-size: 0.95em;
+    color: #ffffff;
+}
+
+.supv-filter {
+    font-size: 0.9em;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    spacing: 4px;
+}
+
+.supv-filter-icon {
+    icon-size: 12px;
+}
+
+.supv-clear-button {
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 0.85em;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #cccccc;
+}
+
+.supv-clear-button:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+.supv-clear-button:active {
+    background-color: rgba(255, 255, 255, 0.28);
+}
+
+.supv-list {
+    spacing: 4px;
+}
+
+.supv-scroll {
+    max-height: 400px;
+}
+
+.supv-empty {
+    padding: 32px 16px;
+    font-size: 0.9em;
+    color: #888888;
+    text-align: center;
+}
+
+.supv-card {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid transparent;
+}
+
+.supv-card:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.supv-card.selected {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.supv-card-row {
+    spacing: 6px;
+}
+
+.supv-card-content {
+    spacing: 3px;
+}
+
+.supv-text-clip {
+    max-height: 5.6em;
+}
+
+.supv-text {
+    font-size: 0.92em;
+    color: #f0f0f0;
+}
+
+.supv-meta {
+    font-size: 0.78em;
+    color: #888888;
+}
+
+.supv-thumb {
+    border-radius: 6px;
+}
+
+.supv-actions {
+    spacing: 2px;
+}
+
+.supv-action-button {
+    padding: 4px;
+    border-radius: 99px;
+}
+
+.supv-action-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.supv-action-button:active {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.supv-action-button StIcon {
+    icon-size: 14px;
+}
+
+.supv-pinned StIcon {
+    color: #f5c211;
+}

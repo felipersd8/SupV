@@ -1,0 +1,8 @@
+{
+  "uuid": "supv@felipersd8.github.io",
+  "name": "Sup V",
+  "description": "Histórico da área de transferência no estilo Win+V (Super+V)",
+  "icon": "edit-paste-symbolic",
+  "max-instances": 1,
+  "author": "felipersd8"
+}

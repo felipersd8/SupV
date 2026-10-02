@@ -5,13 +5,14 @@
 <h1 align="center">Sup V</h1>
 
 <p align="center">
-  Histórico da área de transferência estilo <b>Win+V</b>, dentro do GNOME Shell.<br>
+  Histórico da área de transferência estilo <b>Win+V</b> para <b>GNOME Shell</b> e <b>Cinnamon Desktop</b>.<br>
   <code>Super+V</code> abre · <code>Enter</code> cola no app com foco · fixe, filtre, imagens com miniatura.
 </p>
 
 <p align="center">
   <a href="https://github.com/felipersd8/SupV/releases/latest"><img src="https://img.shields.io/github/v/release/felipersd8/SupV?label=release" alt="Release"></a>
   <img src="https://img.shields.io/badge/GNOME%20Shell-46%20%E2%80%93%2050-4a86cf" alt="GNOME 46–50">
+  <img src="https://img.shields.io/badge/Cinnamon-6.0%20%E2%80%93%206.4-orange" alt="Cinnamon 6.0–6.4">
   <img src="https://img.shields.io/badge/sess%C3%A3o-Wayland%20%7C%20X11-6f5aa0" alt="Wayland e X11">
   <a href="LICENSE"><img src="https://img.shields.io/badge/licen%C3%A7a-GPL--3.0-blue" alt="GPL-3.0"></a>
 </p>
@@ -19,9 +20,8 @@
 ---
 
 O Windows tem o `Win+V`: um painel com tudo que você copiou, que cola direto onde você está
-digitando. No GNOME as alternativas (CopyQ, Diodon, GPaste…) são aplicativos separados, com
-janela própria, foco próprio e sensação de "corpo estranho". O **Sup V** é uma extensão do
-GNOME Shell — o histórico faz parte do próprio shell, exatamente como no Windows.
+digitando. No Linux as alternativas tradicionais são aplicativos separados com sensação de "corpo estranho".
+O **Sup V** integra o histórico de forma nativa ao desktop — como extensão no **GNOME Shell** e como applet nativo no **Cinnamon Desktop**.
 
 <p align="center">
   <img src="Public/screenshot-dark.png" width="300" alt="Painel no tema escuro">
@@ -84,8 +84,14 @@ gnome-extensions enable supv@felipersd8.github.io
 
 ```bash
 git clone https://github.com/felipersd8/SupV.git && cd SupV
+
+# Instalação automática (detecta GNOME ou Cinnamon):
 ./install.sh            # ou: make install
-# logout/login (Wayland) ou Alt+F2 → r (X11) — ativa sozinho no próximo login
+
+# Ou especifique o desktop explicitamente:
+./install.sh --cinnamon # ou: make install-cinnamon
+./install.sh --gnome    # ou: make install-gnome
+./install.sh --all      # instala para ambos os ambientes
 ```
 
 ### Ativação automática
