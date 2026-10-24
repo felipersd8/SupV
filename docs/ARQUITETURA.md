@@ -1,6 +1,6 @@
 # Arquitetura do Sup V
 
-Sup V é uma extensão do GNOME Shell (ESM, GNOME 46–50). Todo o código roda **dentro do
+Sup V é uma extensão do GNOME Shell (ESM, GNOME 46–51). Todo o código roda **dentro do
 processo do shell** (`gnome-shell`), o que permite observar a área de transferência sem
 polling, mostrar o painel como parte do shell e injetar `Ctrl+V` no aplicativo com foco —
 em Wayland e X11, sem `xdotool`/`ydotool`.

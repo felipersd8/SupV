@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/felipersd8/SupV/releases/latest"><img src="https://img.shields.io/github/v/release/felipersd8/SupV?label=release" alt="Release"></a>
-  <img src="https://img.shields.io/badge/GNOME%20Shell-46%20%E2%80%93%2050-4a86cf" alt="GNOME 46–50">
+  <img src="https://img.shields.io/badge/GNOME%20Shell-46%20%E2%80%93%2051-4a86cf" alt="GNOME 46–51">
   <img src="https://img.shields.io/badge/Cinnamon-6.0%20%E2%80%93%206.4-orange" alt="Cinnamon 6.0–6.4">
   <img src="https://img.shields.io/badge/sess%C3%A3o-Wayland%20%7C%20X11-6f5aa0" alt="Wayland e X11">
   <a href="LICENSE"><img src="https://img.shields.io/badge/licen%C3%A7a-GPL--3.0-blue" alt="GPL-3.0"></a>
@@ -173,7 +173,7 @@ Se removeu sem desativar antes e o `Super+V` das notificações não voltou:
 | Ver erros | `journalctl --user -f -o cat -u 'org.gnome.Shell@*.service' \| grep -iE "supv\|JS ERROR"` ou `Alt+F2` → `lg` → aba *Extensions* |
 
 Compatibilidade: GNOME Shell 46, 47, 48, 49 e 50 (`shell-version` no `metadata.json`).
-Desenvolvido e testado no **Ubuntu 26.04 / GNOME 50.1 / Wayland**.
+Desenvolvido e testado no **Ubuntu 26.04 / GNOME 50.1** e **Ubuntu 26.10 / GNOME 51.0** (Wayland).
 
 ## Para desenvolvedores
 

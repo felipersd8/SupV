@@ -15,6 +15,12 @@ export XDG_CONFIG_HOME="$STATE/config"
 export XDG_CACHE_HOME="$STATE/cache"
 export XDG_DATA_HOME="$STATE/data"        # extensão instalada em $STATE/data/gnome-shell/extensions (isolada da real)
 
+# Ubuntu 26.10+ usa dbus-broker e não traz dbus-run-session por padrão
+if ! command -v dbus-run-session >/dev/null; then
+    echo "erro: dbus-run-session não encontrado (sudo apt install dbus-daemon)" >&2
+    exit 1
+fi
+
 gsettings set org.gnome.shell enabled-extensions "['supv@felipersd8.github.io']"
 gsettings set org.gnome.shell disable-user-extensions false
 
